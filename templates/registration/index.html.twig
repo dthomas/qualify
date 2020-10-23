@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Account{% endblock %}
+
+{% block body %}
+    <div class="columns my-3">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                    Register New Account
+                    </p>
+                </header>
+                <div class="card-content">
+                    {{ form_start(form) }}
+                        <div class="content">
+                            {% include "registration/_form.html.twig" %}
+                        </div>
+
+                        <footer>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-link">Register</button>
+                                </div>
+                                <div class="control">
+                                    <a class="button is-link is-light">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+                </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{{ form_row(form.name) }}
+<div class="field">
+    {{ form_label(form.owner.name) }}
+    {{ form_widget(form.owner.name) }}
+</div>
+
+<div class="columns">
+    <div class="column">
+        <div class="field">
+            {{ form_label(form.owner.email) }}
+            {{ form_widget(form.owner.email) }}
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="field">
+            {{ form_label(form.owner.phone) }}
+            {{ form_widget(form.owner.phone) }}
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        <div class="field">
+            {{ form_label(form.owner.password.first) }}
+            {{ form_widget(form.owner.password.first) }}
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="field">
+            {{ form_label(form.owner.password.second) }}
+            {{ form_widget(form.owner.password.second) }}
+        </div>
+    </div>
+</div>

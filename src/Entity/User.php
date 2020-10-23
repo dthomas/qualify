@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use App\Traits\HasTimeStamps;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="users")
+ * @UniqueEntity("email", message="You already have an account.")
  */
 class User implements UserInterface
 {
@@ -53,6 +55,11 @@ class User implements UserInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

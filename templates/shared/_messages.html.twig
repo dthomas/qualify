@@ -1,0 +1,12 @@
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<article class="message is-{{ label }}">
+			<div class="message-header">
+				<p>{{ label | capitalize }}</p>
+			</div>
+			<div class="message-body">
+				{{ message }}
+			</div>
+		</article>
+	{% endfor %}
+{% endfor %}
