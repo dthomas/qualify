@@ -21,12 +21,18 @@
 		<div class="navbar-end">
 			<div class="navbar-item">
 				<div class="buttons">
-					<a class="button" href="{{ path('registration') }}">
-						<strong>Sign up</strong>
-					</a>
-					<a class="button">
-						Log in
-					</a>
+					{% if app.user %}
+						<a class="button" href="{{ path('app_logout') }}">
+							<strong>Sign Out</strong>
+						</a>
+					{% else %}
+						<a class="button" href="{{ path('registration') }}">
+							<strong>Sign up</strong>
+						</a>
+						<a class="button" href="{{ path('app_login') }}">
+							Log in
+						</a>
+					{% endif %}
 				</div>
 			</div>
 		</div>

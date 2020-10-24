@@ -15,7 +15,7 @@ trait HasTimeStamps
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    public DateTime $updatedAt;
+    public ?DateTime $updatedAt;
 
     public function getCreatedAt(): ?DateTime
     {
