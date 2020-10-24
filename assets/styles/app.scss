@@ -1,3 +1,8 @@
 @charset "utf-8";
 $label-weight: 400;
 @import "~bulma/bulma";
+
+.turbolinks-progress-bar {
+    height: 5px;
+    background-color: green;
+}

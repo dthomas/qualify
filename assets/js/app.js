@@ -8,6 +8,9 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../styles/app.scss';
 
+var Turbolinks = require("turbolinks")
+Turbolinks.start()
+
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
