@@ -1,0 +1,13 @@
+<nav class="pagination is-rounded is-right" role="navigation" aria-label="pagination">
+    {% if page == 1 %}
+        <a class="pagination-previous" disabled>Previous</a>
+    {% else %}
+        <a class="pagination-previous" href="{{ path(route, {'page': page -1, 'limit': limit }) }}">Previous</a>
+    {% endif %}
+
+    {% if page < maxPages %}
+        <a class="pagination-next" href="{{ path(route, {'page': page + 1, 'limit': limit }) }}">Next page</a>
+    {% else %}
+        <a class="pagination-next" disabled>Next page</a>
+    {% endif %}
+</nav>

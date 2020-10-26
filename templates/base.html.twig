@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>
-			{% block title %}Qualify
-			{% endblock %}
-		</title>
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>
+		{% block title %}Qualify
 		{% endblock %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</head>
-	<body>
-		<section class="section">
-			<div class="container">
-                {% include "shared/_header.html.twig" %}
-				{% include "shared/_messages.html.twig" %}
-                {% block body %}{% endblock %}
-                {% include "shared/_footer.html.twig" %}
+	</title>
+	{% block stylesheets %}
+		{{ encore_entry_link_tags('app') }}
+	{% endblock %}
+	{% block javascripts %}
+		{{ encore_entry_script_tags('app') }}
+	{% endblock %}
+</head>
+
+<body>
+	<section class="section">
+		<div class="container">
+			{% include "shared/_header.html.twig" %}
+			{% include "shared/_messages.html.twig" %}
+			<div class="my-3">
+				{% block breadcrumb %}{% endblock %}
 			</div>
-		</section>
-	</body>
+			{% block body %}{% endblock %}
+			{% include "shared/_footer.html.twig" %}
+		</div>
+	</section>
+</body>
+
 </html>

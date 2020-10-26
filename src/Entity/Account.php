@@ -39,12 +39,18 @@ class Account
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="account")
+     */
+    private $products;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -66,7 +72,7 @@ class Account
         return $this->owner;
     }
 
-    public function setOwner(User $owner): self
+    public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
 
@@ -98,6 +104,37 @@ class Account
             // set the owning side to null (unless already changed)
             if ($user->getAccount() === $this) {
                 $user->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Product[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getAccount() === $this) {
+                $product->setAccount(null);
             }
         }
 

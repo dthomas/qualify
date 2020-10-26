@@ -1,0 +1,30 @@
+<table class="table is-striped is-hoverable is-fullwidth">
+    <thead class="has-background-link-dark">
+        <tr>
+            <th class="has-text-white">#</th>
+            <th class="has-text-white">Code</th>
+            <th class="has-text-white">Name</th>
+            <th class="has-text-white">Available</th>
+            <th class="has-text-white">Discontinued</th>
+            <th class="has-text-white">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.isAvailable ? 'Yes' : 'No' }}</td>
+                <td>{{ product.isDiscontinued ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a class="button is-info is-small is-rounded" href="{{ path('product.edit', {'id': product.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No products found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

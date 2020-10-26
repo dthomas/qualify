@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product List
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><ahref="{{path('home')}}">Home</a></li>
+            <li><ahref="{{path('settings')}}">Settings</a></li>
+            <li><a class="is-active"href="{{ path('product.list') }}">Products</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <p class="card-header">
+                <div class="is-flex is-justify-content-space-between is-align-items-center">
+                    <p class="title is-5 my-0">Products</p>
+                    <a class="button is-link is-small is-rounded" href="{{ path('product.new') }}">Add</a>
+                </div>
+            </p>
+        </div>
+        <div class="card-content">
+            {% include "product/_products.html.twig" with { 'products': products } %}
+            <div class="pages">
+                {% include "shared/_pagination.html.twig" with { 'route': 'product.list' } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
