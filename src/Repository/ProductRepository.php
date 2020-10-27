@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use App\Traits\HasPagination as TraitsHasPagination;
+use App\Traits\HasPagination;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -15,7 +15,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    use TraitsHasPagination;
+    use HasPagination;
     
     public function __construct(ManagerRegistry $registry)
     {
