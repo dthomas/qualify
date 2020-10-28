@@ -1,0 +1,32 @@
+<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    <thead class="has-background-link-dark">
+        <tr>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_source.list', limit, page, 'id', dir) }}"># {{ arrow(sort, 'id', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_source.list', limit, page, 'code', dir) }}">Code {{ arrow(sort, 'code', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_source.list', limit, page, 'name', dir) }}">Name {{ arrow(sort, 'name', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_source.list', limit, page, 'isActive', dir) }}">Active {{ arrow(sort, 'isActive', dir) }}
+            </a></th>
+            <th class="has-text-white">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lead_source in lead_sources %}
+            <tr>
+                <td>{{ lead_source.id }}</td>
+                <td>{{ lead_source.code }}</td>
+                <td>{{ lead_source.name }}</td>
+                <td>{{ lead_source.isActive ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a class="button is-info is-small is-rounded" href="{{ path('lead_source.edit', {'id': lead_source.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No Lead Stages found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

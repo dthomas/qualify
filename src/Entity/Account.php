@@ -54,12 +54,18 @@ class Account
      */
     private $leadStages;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LeadSource::class, mappedBy="account")
+     */
+    private $leadSources;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->leads = new ArrayCollection();
         $this->leadStages = new ArrayCollection();
+        $this->leadSources = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -209,6 +215,37 @@ class Account
             // set the owning side to null (unless already changed)
             if ($leadStage->getAccount() === $this) {
                 $leadStage->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadSource[]
+     */
+    public function getLeadSources(): Collection
+    {
+        return $this->leadSources;
+    }
+
+    public function addLeadSource(LeadSource $leadSource): self
+    {
+        if (!$this->leadSources->contains($leadSource)) {
+            $this->leadSources[] = $leadSource;
+            $leadSource->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadSource(LeadSource $leadSource): self
+    {
+        if ($this->leadSources->contains($leadSource)) {
+            $this->leadSources->removeElement($leadSource);
+            // set the owning side to null (unless already changed)
+            if ($leadSource->getAccount() === $this) {
+                $leadSource->setAccount(null);
             }
         }
 

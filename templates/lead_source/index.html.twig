@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lead Stages{% endblock %}
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{{path('home')}}">Home</a></li>
+            <li><a href="{{path('settings')}}">Settings</a></li>
+            <li><a class="is-active"href="{{ path('lead_source.list') }}">Lead Sources</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <p class="card-header">
+                <div class="is-flex is-justify-content-space-between is-align-items-center">
+                    <p class="title is-5 my-0">Lead Sources</p>
+                    <div class="actions">
+                        <a class="button is-link is-small is-rounded" href="{{ path('lead_source.new') }}">Add</a>
+                    </div>
+                </div>
+            </p>
+        </div>
+        <div class="card-content">
+            {% include "lead_source/_lead_sources.html.twig" with { 'lead_sources': lead_sources } %}
+            <div class="pages">
+                {% include "shared/_pagination.html.twig" with { 'route': 'lead_source.list' } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
