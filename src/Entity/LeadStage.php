@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=LeadStageRepository::class)
- * @ORM\Table(name="lead_stages", indexes={@ORM\Index(name="idx_lead_stages_is_active", columns={"is_active"})})
+ * @ORM\Table(name="lead_stages", indexes={
+ *      @ORM\Index(name="idx_lead_stages_is_active", columns={"is_active"}),
+ *      @ORM\Index(name="idx_lead_stages_account_id", columns={"account_id"}),
+ * })
  */
 class LeadStage implements AccountAwareInterface
 {

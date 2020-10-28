@@ -29,8 +29,9 @@ final class Version20201028123033 extends AbstractMigration
         $table->addColumn('account_id', 'bigint');
         $table->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP']);
         $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
-        $table->addForeignKeyConstraint('accounts', ['account_id'], ['id'], [], 'fk_lead_stages_account_id');
         $table->addIndex(['is_active'], 'idx_lead_stages_is_active');
+        $table->addIndex(['account_id'], 'idx_lead_stages_account_id');
+        $table->addForeignKeyConstraint('accounts', ['account_id'], ['id'], [], 'fk_lead_stages_account_id');
     }
 
     public function down(Schema $schema) : void
@@ -38,6 +39,7 @@ final class Version20201028123033 extends AbstractMigration
         $this->abortIf(!$schema->hasTable('lead_stages'), 'Table `lead_stages` does not exist');
         $table = $schema->getTable('lead_stages');
         $table->dropIndex('idx_lead_stages_is_active');
+        $table->dropIndex('idx_lead_stages_account_id');
         $table->removeForeignKey('fk_lead_stages_account_id');
         $schema->dropTable('lead_stages');
     }
