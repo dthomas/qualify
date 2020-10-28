@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Lead{% endblock %}
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{path('settings')}}">Settings</a></li>
+            <li><a href="{{ path('lead_stage.list') }}">Lead Stage</a></li>
+            <li><a href="{{ path('lead_stage.show', { 'id': lead_stage.id }) }}">{{ lead_stage.name }}</a></li>
+            <li><a class="is-active" href="{{ path('lead_stage.edit', {'id': lead_stage.id }) }}">Edit</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <p class="card-header">
+                <div class="is-flex is-justify-content-space-between is-align-items-center">
+                    <p class="title is-5 my-0">Edit Lead Stage</p>
+                    <p><a class="button is-small is-link is-light is-rounded" href="{{ path('lead_stage.list') }}">Back</a></p>
+                </div>
+            </p>
+        </div>
+        <div class="card-content">
+            {{ form_start(form) }}
+                <div class="content">
+                    {{ include('lead_stage/_form.html.twig') }}
+                </div>
+
+                <footer>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-small is-link is-rounded" type="submit">Save Lead Stage</button>
+                        </div>
+                    </div>
+                </footer>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -49,11 +49,17 @@ class Account
      */
     private $leads;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LeadStage::class, mappedBy="account")
+     */
+    private $leadStages;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->leads = new ArrayCollection();
+        $this->leadStages = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -172,6 +178,37 @@ class Account
             // set the owning side to null (unless already changed)
             if ($lead->getAccount() === $this) {
                 $lead->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadStage[]
+     */
+    public function getLeadStages(): Collection
+    {
+        return $this->leadStages;
+    }
+
+    public function addLeadStatus(LeadStage $leadStage): self
+    {
+        if (!$this->leadStages->contains($leadStage)) {
+            $this->leadStages[] = $leadStage;
+            $leadStage->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadStatus(LeadStage $leadStage): self
+    {
+        if ($this->leadStagees->contains($leadStage)) {
+            $this->leadStagees->removeElement($leadStage);
+            // set the owning side to null (unless already changed)
+            if ($leadStage->getAccount() === $this) {
+                $leadStage->setAccount(null);
             }
         }
 
