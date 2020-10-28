@@ -1,10 +1,14 @@
 <table class="table is-bordered is-striped is-hoverable is-fullwidth">
     <thead class="has-background-link-dark">
         <tr>
-            <th class="has-text-white">#</th>
-            <th class="has-text-white">Code</th>
-            <th class="has-text-white">Name</th>
-            <th class="has-text-white">Active</th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_stage.list', limit, page, 'id', dir) }}"># {{ arrow(sort, 'id', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_stage.list', limit, page, 'code', dir) }}">Code {{ arrow(sort, 'code', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_stage.list', limit, page, 'name', dir) }}">Name {{ arrow(sort, 'name', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead_stage.list', limit, page, 'isActive', dir) }}">Active {{ arrow(sort, 'isActive', dir) }}
+            </a></th>
             <th class="has-text-white">Actions</th>
         </tr>
     </thead>
