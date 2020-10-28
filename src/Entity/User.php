@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use App\Traits\HasTimeStamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -56,9 +58,15 @@ class User implements UserInterface
      */
     private $account;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lead::class, mappedBy="createdBy")
+     */
+    private $leads;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->leads = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -171,6 +179,37 @@ class User implements UserInterface
     public function setAccount(?Account $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lead[]
+     */
+    public function getLeads(): Collection
+    {
+        return $this->leads;
+    }
+
+    public function addLead(Lead $lead): self
+    {
+        if (!$this->leads->contains($lead)) {
+            $this->leads[] = $lead;
+            $lead->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLead(Lead $lead): self
+    {
+        if ($this->leads->contains($lead)) {
+            $this->leads->removeElement($lead);
+            // set the owning side to null (unless already changed)
+            if ($lead->getCreatedBy() === $this) {
+                $lead->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

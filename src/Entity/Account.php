@@ -44,10 +44,16 @@ class Account
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lead::class, mappedBy="account")
+     */
+    private $leads;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->leads = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -135,6 +141,37 @@ class Account
             // set the owning side to null (unless already changed)
             if ($product->getAccount() === $this) {
                 $product->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lead[]
+     */
+    public function getLeads(): Collection
+    {
+        return $this->leads;
+    }
+
+    public function addLead(Lead $lead): self
+    {
+        if (!$this->leads->contains($lead)) {
+            $this->leads[] = $lead;
+            $lead->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLead(Lead $lead): self
+    {
+        if ($this->leads->contains($lead)) {
+            $this->leads->removeElement($lead);
+            // set the owning side to null (unless already changed)
+            if ($lead->getAccount() === $this) {
+                $lead->setAccount(null);
             }
         }
 

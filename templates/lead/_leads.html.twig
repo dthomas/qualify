@@ -1,0 +1,29 @@
+<table class="table is-bordered is-striped is-hoverable is-fullwidth">
+    <thead class="has-background-link-dark">
+        <tr>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead.list', limit, page, 'id', dir) }}"># {{ arrow(sort, 'id', dir) }}
+            </a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead.list', limit, page, 'name', dir) }}">Name {{ arrow(sort, 'name', dir) }}</a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead.list', limit, page, 'contact.phone', dir) }}">Phone {{ arrow(sort, 'contact.phone', dir) }}</a></th>
+            <th><a class="has-text-white" href="{{ sorted_filter_path('lead.list', limit, page, 'createdAt', dir) }}">Created {{ arrow(sort, 'createdAt', dir) }}</a></th>
+            <th class="has-text-white">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for lead in leads %}
+            <tr>
+                <td>{{ lead.id }}</td>
+                <td>{{ lead.name }}</td>
+                <td>{{ lead.contact.phone }}</td>
+                <td>{{ lead.createdAt | ago }}</td>
+                <td>
+                    <a class="button is-info is-small is-rounded" href="{{ path('lead.edit', {'id': lead.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No leads found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

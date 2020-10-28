@@ -1,0 +1,55 @@
+<div class="columns">
+    <div class="column is-4">
+        {{ form_row(form.name) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.contact.phone) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.contact.email) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column is-4">
+        {{ form_row(form.address.street) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.address.landmark) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.address.locality) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column is-4">
+        {{ form_row(form.address.district) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.address.state) }}
+    </div>
+
+    <div class="column is-2">
+        {{ form_row(form.address.postalCode) }}
+    </div>
+
+    <div class="column is-2">
+        {{ form_row(form.address.plusCode) }}
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column is-3">
+        {{ form_row(form.contact.isPhoneVerified) }}
+    </div>
+
+    <div class="column is-2">
+        {{ form_row(form.contact.isEmailVerified) }}
+    </div>
+</div>

@@ -1,13 +1,15 @@
-<nav class="pagination is-rounded is-right" role="navigation" aria-label="pagination">
+<nav class="pagination is-small is-rounded" role="navigation" aria-label="pagination">
     {% if page == 1 %}
         <a class="pagination-previous" disabled>Previous</a>
     {% else %}
-        <a class="pagination-previous" href="{{ path(route, {'page': page -1, 'limit': limit }) }}">Previous</a>
+        <a class="pagination-previous" href="{{ path(route, {'page': page - 1, 'limit': limit }) }}">Previous</a>
     {% endif %}
 
     {% if page < maxPages %}
-        <a class="pagination-next" href="{{ path(route, {'page': page + 1, 'limit': limit }) }}">Next page</a>
+        <a class="pagination-next" href="{{ path(route, {'page': page + 1, 'limit': limit }) }}">Next</a>
     {% else %}
-        <a class="pagination-next" disabled>Next page</a>
+        <a class="pagination-next" disabled>Next</a>
     {% endif %}
+    <ul class="pagination-list">
+    </ul>
 </nav>

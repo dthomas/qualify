@@ -22,10 +22,11 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    public function findAllProducts(int $page = 1, int $limit = 10)
+    public function findAllProducts(int $page = 1, int $limit = 10, string $sort = 'createdAt' , bool $ascending = true)
     {
         $query = $this->createQueryBuilder('p')
-            ->orderBy('p.createdAt', 'DESC')
+            ->orderBy("p.{$sort}", 'DESC')
+            ->orderBy("p.{$sort}", $ascending ? 'ASC' : 'DESC')
             ->getQuery();
 
         $paginator = $this->paginate($query, $page, $limit);

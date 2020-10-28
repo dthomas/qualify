@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lead{% endblock %}
+
+{% block body %}
+    <h1>Lead</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ lead.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ lead.name }}</td>
+            </tr>
+            <tr>
+                <th>IsQualified</th>
+                <td>{{ lead.isQualified ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ lead.createdAt ? lead.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ lead.updatedAt ? lead.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Contact.phone</th>
+                <td>{{ lead.contact.phone }}</td>
+            </tr>
+            <tr>
+                <th>Contact.isPhoneVerified</th>
+                <td>{{ lead.contact.isPhoneVerified ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Contact.email</th>
+                <td>{{ lead.contact.email }}</td>
+            </tr>
+            <tr>
+                <th>Contact.isEmailVerified</th>
+                <td>{{ lead.contact.isEmailVerified ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Address.street</th>
+                <td>{{ lead.address.street }}</td>
+            </tr>
+            <tr>
+                <th>Address.landmark</th>
+                <td>{{ lead.address.landmark }}</td>
+            </tr>
+            <tr>
+                <th>Address.locality</th>
+                <td>{{ lead.address.locality }}</td>
+            </tr>
+            <tr>
+                <th>Address.district</th>
+                <td>{{ lead.address.district }}</td>
+            </tr>
+            <tr>
+                <th>Address.state</th>
+                <td>{{ lead.address.state }}</td>
+            </tr>
+            <tr>
+                <th>Address.postalCode</th>
+                <td>{{ lead.address.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>Address.plusCode</th>
+                <td>{{ lead.address.plusCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('lead.list') }}">back to list</a>
+
+    <a href="{{ path('lead.edit', {'id': lead.id}) }}">edit</a>
+
+    {{ include('lead/_delete_form.html.twig') }}
+{% endblock %}
