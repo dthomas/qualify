@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="leads", indexes={
  *      @ORM\Index(name="idx_leads_product_id", columns={"product_id"}),
  *      @ORM\Index(name="idx_leads_account_id", columns={"account_id"}),
+ *      @ORM\Index(name="idx_leads_lead_source_id", columns={"lead_source_id"}),
  * })
  */
 class Lead implements AccountAwareInterface
@@ -66,6 +67,11 @@ class Lead implements AccountAwareInterface
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="leads")
      */
     private $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=LeadSource::class, inversedBy="leads")
+     */
+    private $leadSource;
 
     public function __construct()
     {
@@ -170,6 +176,18 @@ class Lead implements AccountAwareInterface
     public function setProduct(?Product $product): self
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getLeadSource(): ?LeadSource
+    {
+        return $this->leadSource;
+    }
+
+    public function setLeadSource(?LeadSource $leadSource): self
+    {
+        $this->leadSource = $leadSource;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Lead;
+use App\Entity\LeadSource;
 use App\Entity\Product;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -26,6 +27,12 @@ class LeadFormType extends AbstractType
             ])
             ->add('address', AddressFormType::class, [
                 'label' => 'Address',
+            ])
+            ->add('leadSource', EntityType::class, [
+                'class' => LeadSource::class,
+                'choice_label' => 'name',
+                'label' => 'Lead Source',
+                'placeholder' => 'Please Select',
             ])
             ->add('product', EntityType::class, [
                 'class' => Product::class,

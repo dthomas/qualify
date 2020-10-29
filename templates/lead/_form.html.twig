@@ -3,12 +3,32 @@
         {{ form_row(form.name) }}
     </div>
 
-    <div class="column is-4">
+    <div class="column is-2">
         {{ form_row(form.contact.phone) }}
     </div>
 
-    <div class="column is-4">
+    <div class="column is-2">
+        {{ form_row(form.contact.isPhoneVerified) }}
+    </div>
+
+    <div class="column is-2">
         {{ form_row(form.contact.email) }}
+    </div>    
+
+    <div class="column is-2">
+        {{ form_row(form.contact.isEmailVerified) }}
+    </div>
+</div>
+
+<div class="columns">
+
+
+        <div class="column is-4">
+        {{ form_row(form.product) }}
+    </div>
+
+    <div class="column is-4">
+        {{ form_row(form.leadSource) }}
     </div>
 </div>
 
@@ -41,18 +61,5 @@
 
     <div class="column is-2">
         {{ form_row(form.address.plusCode) }}
-    </div>
-</div>
-
-<div class="columns">
-    <div class="column is-3">
-        {{ form_row(form.product) }}
-    </div>
-    <div class="column is-3">
-        {{ form_row(form.contact.isPhoneVerified) }}
-    </div>
-
-    <div class="column is-2">
-        {{ form_row(form.contact.isEmailVerified) }}
     </div>
 </div>
