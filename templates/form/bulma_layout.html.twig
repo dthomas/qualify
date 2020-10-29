@@ -33,7 +33,7 @@
         {%- endfor -%}
         {%- set is_multiple_class = multiple ? ' is-multiple' : '' -%}
         <div {{ block('form_widget_container_attributes') }}>
-        <span class="{{ ('select ' ~ size_class ~ is_multiple_class)|trim }}">
+        <span class="{{ ('select is-fullwidth ' ~ size_class ~ is_multiple_class)|trim }}">
             {{- parent() -}}
         </span>
             {{- block('form_errors') -}}
