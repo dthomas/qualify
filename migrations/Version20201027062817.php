@@ -41,6 +41,7 @@ final class Version20201027062817 extends AbstractMigration
         $table->addColumn('account_id', 'bigint');
         $table->addColumn('created_by_id', 'bigint');
         $table->addColumn('updated_by_id', 'bigint', ['notnull' => false]);
+        $table->addIndex(['account_id'], 'idx_leads_account_id');
         $table->addForeignKeyConstraint('accounts', ['account_id'], ['id'], [], 'fk_leads_account_id');
         $table->addForeignKeyConstraint('users', ['created_by_id'], ['id'], [], 'fk_leads_created_by_id');
         $table->addForeignKeyConstraint('users', ['updated_by_id'], ['id'], [], 'fk_leads_updated_by_id');
@@ -50,6 +51,7 @@ final class Version20201027062817 extends AbstractMigration
     {
         $this->abortIf(!$schema->hasTable('leads'), 'Table `leads` does not exist');
         $table = $schema->getTable('leads');
+        $table->dropIndex('idx_leads_account_id');
         $table->removeForeignKey('fk_leads_account_id');
         $table->removeForeignKey('fk_leads_created_by_id');
         $table->removeForeignKey('fk_leads_updated_by_id');

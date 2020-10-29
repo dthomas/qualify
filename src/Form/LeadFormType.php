@@ -3,7 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Lead;
+use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,7 +26,15 @@ class LeadFormType extends AbstractType
             ])
             ->add('address', AddressFormType::class, [
                 'label' => 'Address',
-            ]);
+            ])
+            ->add('product', EntityType::class, [
+                'class' => Product::class,
+                'choice_label' => 'name',
+                'label' => 'Product',
+                'placeholder' => 'Please Select',
+                'required' => false,
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

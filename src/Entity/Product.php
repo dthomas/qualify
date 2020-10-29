@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Doctrine\AccountAwareInterface;
 use App\Repository\ProductRepository;
 use App\Traits\HasTimeStamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Product implements AccountAwareInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $account;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Lead::class, mappedBy="product")
+     */
+    private $leads;
+
+    public function __construct()
+    {
+        $this->leads = new ArrayCollection();
+    }
 
     public function getId(): ?string
     {
@@ -109,6 +121,37 @@ class Product implements AccountAwareInterface
     public function setAccount(?Account $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lead[]
+     */
+    public function getLeads(): Collection
+    {
+        return $this->leads;
+    }
+
+    public function addLead(Lead $lead): self
+    {
+        if (!$this->leads->contains($lead)) {
+            $this->leads[] = $lead;
+            $lead->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLead(Lead $lead): self
+    {
+        if ($this->leads->contains($lead)) {
+            $this->leads->removeElement($lead);
+            // set the owning side to null (unless already changed)
+            if ($lead->getProduct() === $this) {
+                $lead->setProduct(null);
+            }
+        }
 
         return $this;
     }

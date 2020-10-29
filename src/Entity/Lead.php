@@ -9,7 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=LeadRepository::class)
- * @ORM\Table(name="`leads`")
+ * @ORM\Table(name="leads", indexes={
+ *      @ORM\Index(name="idx_leads_product_id", columns={"product_id"}),
+ *      @ORM\Index(name="idx_leads_account_id", columns={"account_id"}),
+ * })
  */
 class Lead implements AccountAwareInterface
 {
@@ -58,6 +61,11 @@ class Lead implements AccountAwareInterface
      * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $updatedBy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="leads")
+     */
+    private $product;
 
     public function __construct()
     {
@@ -150,6 +158,18 @@ class Lead implements AccountAwareInterface
     public function setUpdatedBy(?User $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }
