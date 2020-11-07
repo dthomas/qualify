@@ -1,0 +1,11 @@
+{% include "lead_interaction/_list_header.html.twig" with { 'label': 'Contact Information', url: path('lead.contact.edit', {'id': lead.id}), target: '#lead-contact-info' } only %}
+<div>
+    {% set item_template = "lead_interaction/_list_item.html.twig" %}
+    {% set phone_icon = lead.contact.isPhoneVerified ? 'mdi:check-decagram' : 'mdi:alert-decagram' %}
+    {% set email_icon = lead.contact.isEmailVerified ? 'mdi:check-decagram' : 'mdi:alert-decagram' %}
+    {% set picon_color = lead.contact.isPhoneVerified ? 'blue' : 'orange' %}
+    {% set eicon_color = lead.contact.isEmailVerified ? 'blue' : 'orange' %}
+    
+    {% include item_template with { 'label': 'Phone', 'value': lead.contact.phone, 'icon': phone_icon, 'color': picon_color } %}
+    {% include item_template with { 'label': 'Email', 'value': lead.contact.email, 'icon': email_icon, 'color': eicon_color } %}
+</div>

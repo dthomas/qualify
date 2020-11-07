@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Doctrine\AccountAwareInterface;
 use App\Repository\LeadRepository;
 use App\Traits\HasTimeStamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,10 +75,16 @@ class Lead implements AccountAwareInterface
      */
     private $leadSource;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LeadInteraction::class, mappedBy="parentLead")
+     */
+    private $leadInteractions;
+
     public function __construct()
     {
         $this->contact = new Contact();
         $this->address = new Address();
+        $this->leadInteractions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,6 +196,36 @@ class Lead implements AccountAwareInterface
     public function setLeadSource(?LeadSource $leadSource): self
     {
         $this->leadSource = $leadSource;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadInteraction[]
+     */
+    public function getLeadInteractions(): Collection
+    {
+        return $this->leadInteractions;
+    }
+
+    public function addLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if (!$this->leadInteractions->contains($leadInteraction)) {
+            $this->leadInteractions[] = $leadInteraction;
+            $leadInteraction->setParentLead($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if ($this->leadInteractions->removeElement($leadInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($leadInteraction->getParentLead() === $this) {
+                $leadInteraction->setParentLead(null);
+            }
+        }
 
         return $this;
     }

@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Doctrine\AccountAwareInterface;
 use App\Repository\LeadStageRepository;
 use App\Traits\HasTimeStamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,6 +47,16 @@ class LeadStage implements AccountAwareInterface
      * @ORM\Column(type="boolean")
      */
     private $isActive;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LeadInteraction::class, mappedBy="leadStage")
+     */
+    private $leadInteractions;
+
+    public function __construct()
+    {
+        $this->leadInteractions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,6 +107,36 @@ class LeadStage implements AccountAwareInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadInteraction[]
+     */
+    public function getLeadInteractions(): Collection
+    {
+        return $this->leadInteractions;
+    }
+
+    public function addLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if (!$this->leadInteractions->contains($leadInteraction)) {
+            $this->leadInteractions[] = $leadInteraction;
+            $leadInteraction->setLeadStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if ($this->leadInteractions->removeElement($leadInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($leadInteraction->getLeadStage() === $this) {
+                $leadInteraction->setLeadStage(null);
+            }
+        }
 
         return $this;
     }

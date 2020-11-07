@@ -1,0 +1,9 @@
+<div class="my-2">
+    <p class="is-size-7">
+        {{label}}
+        {% if icon is defined and color is defined %}
+            <span class="iconify" data-icon="{{icon}}" data-inline="false" style="color: {{color}};"></span>
+        {% endif %}
+    </p>
+    <div class="block">{{value}}</div>
+</div>

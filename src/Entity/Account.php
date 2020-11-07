@@ -59,6 +59,11 @@ class Account
      */
     private $leadSources;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LeadInteraction::class, mappedBy="account")
+     */
+    private $leadInteractions;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -66,6 +71,7 @@ class Account
         $this->leads = new ArrayCollection();
         $this->leadStages = new ArrayCollection();
         $this->leadSources = new ArrayCollection();
+        $this->leadInteractions = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -246,6 +252,36 @@ class Account
             // set the owning side to null (unless already changed)
             if ($leadSource->getAccount() === $this) {
                 $leadSource->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadInteraction[]
+     */
+    public function getLeadInteractions(): Collection
+    {
+        return $this->leadInteractions;
+    }
+
+    public function addLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if (!$this->leadInteractions->contains($leadInteraction)) {
+            $this->leadInteractions[] = $leadInteraction;
+            $leadInteraction->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if ($this->leadInteractions->removeElement($leadInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($leadInteraction->getAccount() === $this) {
+                $leadInteraction->setAccount(null);
             }
         }
 

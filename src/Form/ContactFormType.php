@@ -20,28 +20,10 @@ class ContactFormType extends AbstractType
                     'placeholder' => 'Phone Number',
                 ]
             ])
-            ->add('isPhoneVerified', ChoiceType::class, [
-                'choices' => [
-                    'Yes' => true,
-                    'No' => false,
-                ],
-                'label' => 'Phone Number Verified',
-                'placeholder' => 'Please Select',
-                'required' => false,
-            ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'Email Address',
                 ],
-                'required' => false,
-            ])
-            ->add('isEmailVerified', ChoiceType::class, [
-                'choices' => [
-                    'Yes' => true,
-                    'No' => false,
-                ],
-                'label' => 'Email Address Verified',
-                'placeholder' => 'Please Select',
                 'required' => false,
             ]);
     }

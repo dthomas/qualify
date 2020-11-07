@@ -1,0 +1,30 @@
+<div class="block">
+    <div class="notification is-light">
+        <div class="content">
+            <blockquote>{{ item.remarks }}
+                <cite>~ {{ item.user.name }} |
+                    {{ item.createdAt | date('M j, Y @ h:i A')}}</cite>
+            </blockquote>
+        </div>
+
+        <div class="field is-grouped is-grouped-multiline">
+            {% if item.leadStage %}
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag is-dark">Lead Stage</span>
+                        <span class="tag is-info">{{ item.leadStage.name }}</span>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if item.callbackAt %}
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag is-dark">Follow up on</span>
+                        <span class="tag is-success">{{ item.callbackAt | date('M j, Y @ h:i A') }}</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

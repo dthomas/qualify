@@ -2,7 +2,14 @@
 $label-weight: 400;
 @import "~bulma/bulma";
 
-.turbolinks-progress-bar {
-    height: 5px;
-    background-color: green;
+.htmx-request {
+    @extend .is-loading;
+}
+
+cite {
+    display: block;
+    font-size: 0.85rem;
+    line-height: 1.8rem;
+    margin-top: 1rem;
+    text-align: right;
 }

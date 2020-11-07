@@ -63,10 +63,16 @@ class User implements UserInterface
      */
     private $leads;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LeadInteraction::class, mappedBy="user")
+     */
+    private $leadInteractions;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->leads = new ArrayCollection();
+        $this->leadInteractions = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -208,6 +214,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($lead->getCreatedBy() === $this) {
                 $lead->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LeadInteraction[]
+     */
+    public function getLeadInteractions(): Collection
+    {
+        return $this->leadInteractions;
+    }
+
+    public function addLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if (!$this->leadInteractions->contains($leadInteraction)) {
+            $this->leadInteractions[] = $leadInteraction;
+            $leadInteraction->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLeadInteraction(LeadInteraction $leadInteraction): self
+    {
+        if ($this->leadInteractions->removeElement($leadInteraction)) {
+            // set the owning side to null (unless already changed)
+            if ($leadInteraction->getUser() === $this) {
+                $leadInteraction->setUser(null);
             }
         }
 

@@ -1,0 +1,11 @@
+{% include "lead_interaction/_list_header.html.twig" with { 'label': 'Product Information', url: path('lead.product.edit', {'id': lead.id}), target: '#lead-product-info' } only %}
+
+{{ form_start(form, {'attr': {'hx-target': '#lead-product-info', 'hx-indicator': '#submit-product-edit'} }) }}
+{{ form_row(form.leadSource) }}
+{{ form_row(form.product) }}
+
+<div class="is-flex is-justify-content-space-between is-align-items-center">
+    <button type="submit" id="submit-product-edit" class="button is-success is-small is-rounded">Save</button>
+    <a hx-get="{{ path('lead.product.edit', {'id': lead.id, 'cancel': 1 }) }}" hx-target="#lead-product-info" class="button is-small is-light is-rounded">Cancel</a>
+</div>
+{{ form_end(form) }}

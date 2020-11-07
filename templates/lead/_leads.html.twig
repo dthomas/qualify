@@ -18,6 +18,7 @@
                 <td>{{ lead.createdAt | ago }}</td>
                 <td>
                     <a class="button is-info is-small is-rounded" href="{{ path('lead.edit', {'id': lead.id}) }}">Edit</a>
+                    <a class="button is-success is-small is-rounded" href="{{ path('lead.interaction.new', { 'id': lead.id }) }}">Contact</a>
                 </td>
             </tr>
         {% else %}

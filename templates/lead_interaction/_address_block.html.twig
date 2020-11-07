@@ -1,0 +1,11 @@
+{% include "lead_interaction/_list_header.html.twig" with { 'label': 'Address Information', url: path('lead.address.edit', {'id': lead.id}), target: '#lead-address-info' } only %}
+<div id="address-items-list">
+    {% set item_template = "lead_interaction/_list_item.html.twig" %}
+    {% include item_template with { 'label': 'Street', 'value': lead.address.street } %}
+    {% include item_template with { 'label': 'Landmark', 'value': lead.address.landmark } %}
+    {% include item_template with { 'label': 'Locality', 'value': lead.address.locality } %}
+    {% include item_template with { 'label': 'District', 'value': lead.address.district } %}
+    {% include item_template with { 'label': 'State', 'value': lead.address.state } %}
+    {% include item_template with { 'label': 'Postal Code', 'value': lead.address.postalCode } %}
+    {% include item_template with { 'label': 'Plus Code', 'value': lead.address.plusCode } %}
+</div>

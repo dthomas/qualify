@@ -1,0 +1,37 @@
+<div class="columns">
+    <div class="column">
+        <div class="tabs is-medium is-right">
+            <ul>
+                <li class="is-active">
+                    <a>Lead</a>
+                </li>
+                {# <li>
+                    <a>Offers</a>
+                </li>
+                <li>
+                    <a>Actions</a>
+                </li> #}
+                <li>
+                    <a hx-get="{{ path('lead.user.interaction', {'id': lead.id}) }}" hx-target="#lead-workspace">Interactions</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-4">
+        <div id="lead-contact-info">
+            {% include "lead_interaction/_contact_block.html.twig" %}
+        </div>
+    </div>
+    <div class="column is-4">
+        <div id="lead-address-info">
+            {% include "lead_interaction/_address_block.html.twig" %}
+        </div>
+    </div>
+    <div class="column is-4">
+        <div id="lead-product-info">
+            {% include "lead_interaction/_product_block.html.twig" %}
+        </div>
+    </div>
+</div>

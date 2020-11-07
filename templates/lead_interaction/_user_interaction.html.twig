@@ -1,0 +1,48 @@
+<div class="columns">
+    <div class="column">
+        <div class="tabs is-medium is-right">
+            <ul>
+                <li>
+                    <a hx-get="{{ path('lead.info', {'id': lead.id}) }}" hx-target="#lead-workspace">Lead</a>
+                </li>
+                {# <li>
+                    <a>Offers</a>
+                </li>
+                <li><a>Actions</a>
+                </li> #}
+                <li class="is-active">
+                    <a>Interactions</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-8">
+        <div class="subtitle is-5">History</div>
+        {% for i in interactions %}
+            {% include "lead_interaction/_interaction.html.twig" with { 'item' : i } %}
+        {% else %}
+            <div>No previous interactions found!</div>
+        {% endfor %}
+    </div>
+    <div class="column is-4">
+        <div class="subtitle is-5">Comments</div>
+        {{ form_start(form, {'action': path('lead.user.interaction', {'id': lead.id })}) }}
+        <div class="columns">
+            <div class="column">{{ form_row(form.callbackAt) }}</div>
+        </div>
+        <div class="columns">
+            <div class="column">{{ form_row(form.leadStage) }}</div>
+        </div>
+        <div class="columns">
+            <div class="column">{{ form_row(form.remarks) }}</div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <button type="submit" class="button is-small is-success is-rounded">Save</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
