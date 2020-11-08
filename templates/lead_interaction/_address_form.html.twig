@@ -8,7 +8,7 @@
 {{ form_row(form.address.postalCode) }}
 {{ form_row(form.address.plusCode) }}
 <div class="is-flex is-justify-content-space-between is-align-items-center">
-    <button type="submit" id="submit-address-edit" class="button is-success is-small is-rounded">Save</button>
+    <button type="submit" id="submit-address-edit" hx-patch="{{ path('lead.address.edit', {'id': lead.id}) }}" class="button is-success is-small is-rounded">Save</button>
     <a hx-get="{{ path('lead.address.edit', {'id': lead.id, 'cancel': 1 }) }}" hx-target="#lead-address-info" class="button is-small is-light is-rounded">Cancel</a>
 </div>
 {{ form_end(form) }}

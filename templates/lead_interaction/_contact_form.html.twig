@@ -5,7 +5,7 @@
 {{ form_row(form.contact.email) }}
 
 <div class="is-flex is-justify-content-space-between is-align-items-center">
-    <button type="submit" id="submit-contact-edit" class="button is-success is-small is-rounded">Save</button>
+    <button type="submit" id="submit-contact-edit" hx-patch="{{ path('lead.contact.edit', {'id': lead.id}) }}" class="button is-success is-small is-rounded">Save</button>
     <a hx-get="{{ path('lead.contact.edit', {'id': lead.id, 'cancel': 1 }) }}" hx-target="#lead-contact-info" class="button is-small is-light is-rounded">Cancel</a>
 </div>
 {{ form_end(form) }}
