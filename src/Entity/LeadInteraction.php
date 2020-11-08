@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(name="idx_lead_interactions_account_id", columns={"account_id"}),
  *      @ORM\Index(name="idx_lead_interactions_parent_lead_id", columns={"parent_lead_id"}),
  *      @ORM\Index(name="idx_lead_interactions_lead_stage_id", columns={"lead_stage_id"}),
+ *      @ORM\Index(name="idx_lead_interactions_user_id", columns={"user_id"}),
  * })
  */
 class LeadInteraction implements AccountAwareInterface

@@ -32,7 +32,7 @@ final class Version20201030084747 extends AbstractMigration
         $table->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP']);
         $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
         $table->addIndex(['account_id'], 'idx_lead_interactions_account_id');
-        $table->addIndex(['account_id'], 'idx_lead_interactions_user_id');
+        $table->addIndex(['user_id'], 'idx_lead_interactions_user_id');
         $table->addIndex(['lead_stage_id'], 'idx_lead_interactions_lead_stage_id');
         $table->addIndex(['parent_lead_id'], 'idx_lead_interactions_parent_lead_id');
         $table->addForeignKeyConstraint('accounts', ['account_id'], ['id'], [], 'fk_lead_interactions_account_id');
