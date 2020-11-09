@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c795cd51e809795b25fecc6902fb6a69",
+    "content-hash": "8f8c97857fd60295a13ed2865377e4a4",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1343,6 +1343,76 @@
             "time": "2020-07-30T16:57:33+00:00"
         },
         {
+            "name": "dunglas/doctrine-json-odm",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dunglas/doctrine-json-odm.git",
+                "reference": "70afdc23e68a31c7cbf8417f2dbb285ec929e14e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dunglas/doctrine-json-odm/zipball/70afdc23e68a31c7cbf8417f2dbb285ec929e14e",
+                "reference": "70afdc23e68a31c7cbf8417f2dbb285ec929e14e",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.6.3",
+                "php": "^7.1",
+                "symfony/property-access": "^3.4 || ^4.1 || ^5.0",
+                "symfony/property-info": "^3.4 || ^4.1 || ^5.0",
+                "symfony/serializer": "^3.4 || ^4.1 || ^5.0"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "^1.8",
+                "symfony/finder": "^3.4 || ^4.1 || ^5.0",
+                "symfony/framework-bundle": "^3.4 || ^4.1 || ^5.0",
+                "symfony/phpunit-bridge": "^5.0"
+            },
+            "suggest": {
+                "scienta/doctrine-json-functions": "To add support for JSON functions in DQL.",
+                "symfony/framework-bundle": "To use the provided bundle."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dunglas\\DoctrineJsonOdm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin Dunglas",
+                    "email": "dunglas@gmail.com",
+                    "homepage": "https://dunglas.fr"
+                }
+            ],
+            "description": "An object document mapper for Doctrine ORM using JSON types of modern RDBMS.",
+            "homepage": "https://dunglas.fr",
+            "keywords": [
+                "database",
+                "json",
+                "mysql",
+                "odm",
+                "orm",
+                "postgresql",
+                "rdbms"
+            ],
+            "support": {
+                "issues": "https://github.com/dunglas/doctrine-json-odm/issues",
+                "source": "https://github.com/dunglas/doctrine-json-odm/tree/hotfix/1.0.1"
+            },
+            "time": "2019-12-23T09:48:22+00:00"
+        },
+        {
             "name": "egulias/email-validator",
             "version": "2.1.22",
             "source": {
@@ -2203,6 +2273,72 @@
                 "psr-3"
             ],
             "time": "2020-03-23T09:12:05+00:00"
+        },
+        {
+            "name": "scienta/doctrine-json-functions",
+            "version": "4.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScientaNL/DoctrineJsonFunctions.git",
+                "reference": "6cab3f93a7415dbc889da15336c7605efbfe7bd4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScientaNL/DoctrineJsonFunctions/zipball/6cab3f93a7415dbc889da15336c7605efbfe7bd4",
+                "reference": "6cab3f93a7415dbc889da15336c7605efbfe7bd4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^5.0",
+                "doctrine/orm": "~2.6",
+                "phpunit/phpunit": "^6.5"
+            },
+            "suggest": {
+                "dunglas/doctrine-json-odm": "To serialize / deserialize objects as JSON documents."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Scienta\\DoctrineJsonFunctions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Doctrine Json Functions Contributors",
+                    "homepage": "https://github.com/ScientaNL/DoctrineJsonFunctions/contributors"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for json query functions.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "dql",
+                "json",
+                "mariadb",
+                "mysql",
+                "orm",
+                "postgres",
+                "postgresql",
+                "sqlite"
+            ],
+            "support": {
+                "issues": "https://github.com/ScientaNL/DoctrineJsonFunctions/issues",
+                "source": "https://github.com/ScientaNL/DoctrineJsonFunctions/tree/master"
+            },
+            "time": "2020-02-07T11:05:21+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -7778,5 +7914,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
