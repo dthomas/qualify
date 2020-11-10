@@ -53,6 +53,11 @@ class LeadStage implements AccountAwareInterface
      */
     private $leadInteractions;
 
+    /**
+     * @ORM\Column(type="string", length=16, options={"default": "follow-up"})
+     */
+    private $stageType;
+
     public function __construct()
     {
         $this->leadInteractions = new ArrayCollection();
@@ -137,6 +142,18 @@ class LeadStage implements AccountAwareInterface
                 $leadInteraction->setLeadStage(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStageType(): ?string
+    {
+        return $this->stageType;
+    }
+
+    public function setStageType(string $stageType): self
+    {
+        $this->stageType = $stageType;
 
         return $this;
     }

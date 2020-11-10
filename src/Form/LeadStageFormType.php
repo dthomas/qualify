@@ -31,6 +31,13 @@ class LeadStageFormType extends AbstractType
                 ],
                 'placeholder' => 'Please Select',
             ])
+            ->add('stageType', ChoiceType::class, [
+                'choices' => [
+                    'Follow up' => 'follow-up',
+                    'Qualified' => 'qualified',
+                    'Dropped' => 'dropped',
+                ]
+            ])
         ;
     }
 
