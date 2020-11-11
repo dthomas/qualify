@@ -64,6 +64,11 @@ class Account
      */
     private $leadInteractions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Opportunity::class, mappedBy="account")
+     */
+    private $opportunities;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -72,6 +77,7 @@ class Account
         $this->leadStages = new ArrayCollection();
         $this->leadSources = new ArrayCollection();
         $this->leadInteractions = new ArrayCollection();
+        $this->opportunities = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -282,6 +288,36 @@ class Account
             // set the owning side to null (unless already changed)
             if ($leadInteraction->getAccount() === $this) {
                 $leadInteraction->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Opportunity[]
+     */
+    public function getOpportunities(): Collection
+    {
+        return $this->opportunities;
+    }
+
+    public function addOpportunity(Opportunity $opportunity): self
+    {
+        if (!$this->opportunities->contains($opportunity)) {
+            $this->opportunities[] = $opportunity;
+            $opportunity->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunity(Opportunity $opportunity): self
+    {
+        if ($this->opportunities->removeElement($opportunity)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunity->getAccount() === $this) {
+                $opportunity->setAccount(null);
             }
         }
 

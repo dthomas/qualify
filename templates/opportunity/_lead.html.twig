@@ -1,0 +1,30 @@
+<div class="columns">
+    <div class="column">
+        <div class="tabs is-medium is-right">
+            <ul>
+                <li>
+                    <a hx-get="{{ path('opportunity.personal', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Personal</a>
+                </li>
+                <li>
+                    <a hx-get="{{ path('opportunity.product', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Product</a>
+                </li>
+                <li class="is-active">
+                    <a>Lead History</a>
+                </li>
+                <li>
+                    <a>Actions</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-8">
+        <div class="subtitle is-5">History</div>
+        {% for i in interactions %}
+            {% include "lead_interaction/_interaction.html.twig" with { 'item' : i } %}
+        {% else %}
+            <div>No previous interactions found!</div>
+        {% endfor %}
+    </div>
+</div>

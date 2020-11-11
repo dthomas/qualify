@@ -1,0 +1,14 @@
+{% include "opportunity/_list_header.html.twig" with { 'label': 'Address Information', url: path('opportunity.address.edit', {'id': opportunity.id}), target: '#opportunity-address-info' } only %}
+{{ form_start(form, {'attr': {'hx-target': '#opportunity-address-info', 'hx-indicator': '#submit-address-edit'} }) }}
+{{ form_row(form.address.street) }}
+{{ form_row(form.address.landmark) }}
+{{ form_row(form.address.locality) }}
+{{ form_row(form.address.district) }}
+{{ form_row(form.address.state) }}
+{{ form_row(form.address.postalCode) }}
+{{ form_row(form.address.plusCode) }}
+<div class="is-flex is-justify-content-space-between is-align-items-center">
+    <button type="submit" id="submit-address-edit" hx-patch="{{ path('opportunity.address.edit', {'id': opportunity.id}) }}" class="button is-success is-small is-rounded">Save</button>
+    <a hx-get="{{ path('opportunity.address.edit', {'id': opportunity.id, 'cancel': 1 }) }}" hx-target="#opportunity-address-info" class="button is-small is-light is-rounded">Cancel</a>
+</div>
+{{ form_end(form) }}

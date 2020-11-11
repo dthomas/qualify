@@ -80,11 +80,17 @@ class Lead implements AccountAwareInterface
      */
     private $leadInteractions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Opportunity::class, mappedBy="parentLead")
+     */
+    private $opportunities;
+
     public function __construct()
     {
         $this->contact = new Contact();
         $this->address = new Address();
         $this->leadInteractions = new ArrayCollection();
+        $this->opportunities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -224,6 +230,36 @@ class Lead implements AccountAwareInterface
             // set the owning side to null (unless already changed)
             if ($leadInteraction->getParentLead() === $this) {
                 $leadInteraction->setParentLead(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Opportunity[]
+     */
+    public function getOpportunities(): Collection
+    {
+        return $this->opportunities;
+    }
+
+    public function addOpportunity(Opportunity $opportunity): self
+    {
+        if (!$this->opportunities->contains($opportunity)) {
+            $this->opportunities[] = $opportunity;
+            $opportunity->setParentLead($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunity(Opportunity $opportunity): self
+    {
+        if ($this->opportunities->removeElement($opportunity)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunity->getParentLead() === $this) {
+                $opportunity->setParentLead(null);
             }
         }
 

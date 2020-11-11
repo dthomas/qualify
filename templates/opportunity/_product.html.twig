@@ -1,0 +1,26 @@
+<div class="columns">
+    <div class="column">
+        <div class="tabs is-medium is-right">
+            <ul>
+                <li>
+                    <a hx-get="{{ path('opportunity.personal', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Personal</a>
+                </li>
+                <li class="is-active">
+                    <a>Product</a>
+                </li>
+                <li>
+                    <a hx-get="{{ path('opportunity.lead', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Lead History</a>
+                </li>
+                <li>
+                    <a>Actions</a>
+                </li>
+                <li>
+                    {# <a hx-get="{{ path('opportunity.interaction', {'id': opportunity.id}) }}" hx-target="#opportuntiy-workspace">Interactions</a> #}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="columns">
+
+</div>

@@ -18,6 +18,7 @@
             </a>
             {% if is_granted('ROLE_USER') %}
                 <a class="navbar-item" href="{{ path('lead.list') }}">Leads</a>
+                <a class="navbar-item" href="{{ path('opportunity.list') }}">Opportunities</a>
             {% endif %}
         </div>
 

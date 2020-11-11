@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Opportunity
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <p class="card-header">
+                <div class="is-flex is-justify-content-space-between is-align-items-center">
+                    <p class="title is-5 my-0">{{ opportunity.name }}</p>
+                    <p>
+                        <a class="button is-small is-link is-light is-rounded" href="{{ path('opportunity.list') }}">Back</a>
+                    </p>
+                </div>
+            </p>
+        </div>
+        <div class="card-content" id="opportunity-workspace">
+            {% include "opportunity/_personal.html.twig" %}
+        </div>
+    </div>
+{% endblock %}

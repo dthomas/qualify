@@ -1,0 +1,11 @@
+{% include "opportunity/_list_header.html.twig" with { 'label': 'Contact Information', url: path('opportunity.contact.edit', {'id': opportunity.id}), target: '#opportunity-contact-info' } only %}
+<div>
+    {% set item_template = "opportunity/_list_item.html.twig" %}
+    {% set phone_icon = opportunity.contact.isPhoneVerified ? 'mdi:check-decagram' : 'mdi:alert-decagram' %}
+    {% set email_icon = opportunity.contact.isEmailVerified ? 'mdi:check-decagram' : 'mdi:alert-decagram' %}
+    {% set picon_color = opportunity.contact.isPhoneVerified ? 'blue' : 'orange' %}
+    {% set eicon_color = opportunity.contact.isEmailVerified ? 'blue' : 'orange' %}
+    
+    {% include item_template with { 'label': 'Phone', 'value': opportunity.contact.phone, 'icon': phone_icon, 'color': picon_color } %}
+    {% include item_template with { 'label': 'Email', 'value': opportunity.contact.email, 'icon': email_icon, 'color': eicon_color } %}
+</div>

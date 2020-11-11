@@ -23,6 +23,7 @@ class LeadInteractionFormType extends AbstractType
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
                 'label' => 'Next Followup At',
+                'required' => false,
             ])
             ->add('remarks', TextareaType::class, [
                 'attr' => [

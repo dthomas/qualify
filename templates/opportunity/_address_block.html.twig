@@ -1,0 +1,11 @@
+{% include "opportunity/_list_header.html.twig" with { 'label': 'Address Information', url: path('opportunity.address.edit', {'id': opportunity.id}), target: '#opportunity-address-info' } only %}
+<div id="address-items-list">
+    {% set item_template = "opportunity/_list_item.html.twig" %}
+    {% include item_template with { 'label': 'Street', 'value': opportunity.address.street } %}
+    {% include item_template with { 'label': 'Landmark', 'value': opportunity.address.landmark } %}
+    {% include item_template with { 'label': 'Locality', 'value': opportunity.address.locality } %}
+    {% include item_template with { 'label': 'District', 'value': opportunity.address.district } %}
+    {% include item_template with { 'label': 'State', 'value': opportunity.address.state } %}
+    {% include item_template with { 'label': 'Postal Code', 'value': opportunity.address.postalCode } %}
+    {% include item_template with { 'label': 'Plus Code', 'value': opportunity.address.plusCode } %}
+</div>

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Lead;
 use App\Entity\LeadInteraction;
 use App\Entity\LeadSource;
+use App\Entity\Opportunity;
 use App\Entity\Product;
 use App\Form\AddressFormType;
 use App\Form\ContactFormType;
@@ -198,12 +199,35 @@ class LeadInteractionController extends AbstractController
             $interaction->setParentLead($lead);
             $interaction->setUser($this->getUser());
             $interaction->setAccount($lead->getAccount());
-
             $this->em->persist($interaction);
+
+            $qualifed = $interaction->getLeadStage()->getStageType() === 'qualified';
+
+            if ($qualifed) {
+                $opportunity = new Opportunity();
+                $opportunity->setParentLead($lead);
+                $opportunity->setContact($lead->getContact());
+                $opportunity->setAddress($lead->getAddress());
+                $opportunity->setAccount($lead->getAccount());
+                $opportunity->setName($lead->getName());
+                $opportunity->setCreatedBy($this->getUser());
+                $opportunity->getContact()->setIsPhoneVerified(true);
+                $opportunity->setCreatedAt(new \DateTime());
+                $lead->setIsQualified(true);
+
+                $this->em->persist($lead);
+                $this->em->persist($opportunity);
+            }
+
             $this->em->flush();
 
-            $this->addFlash('success', 'lead.interaction.added');
-            return $this->redirectToRoute('lead.list');
+            if ($qualifed) {
+                $this->addFlash('success', 'lead.opportunity.converted');
+                return $this->redirectToRoute('opportunity.list');
+            } else {
+                $this->addFlash('success', 'lead.interaction.added');
+                return $this->redirectToRoute('lead.list');
+            }
         }
 
         return $this->render('lead_interaction/_user_interaction.html.twig', [
