@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Doctrine\AccountAwareInterface;
 use App\Repository\OpportunityRepository;
 use App\Traits\HasTimeStamps;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,6 +67,16 @@ class Opportunity implements AccountAwareInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $updatedBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity=OpportunityItem::class, mappedBy="opportunity")
+     */
+    private $opportunityItems;
+
+    public function __construct()
+    {
+        $this->opportunityItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,6 +163,36 @@ class Opportunity implements AccountAwareInterface
     public function setUpdatedBy(?User $updatedBy): self
     {
         $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OpportunityItem[]
+     */
+    public function getOpportunityItems(): Collection
+    {
+        return $this->opportunityItems;
+    }
+
+    public function addOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if (!$this->opportunityItems->contains($opportunityItem)) {
+            $this->opportunityItems[] = $opportunityItem;
+            $opportunityItem->setOpportunity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if ($this->opportunityItems->removeElement($opportunityItem)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunityItem->getOpportunity() === $this) {
+                $opportunityItem->setOpportunity(null);
+            }
+        }
 
         return $this;
     }

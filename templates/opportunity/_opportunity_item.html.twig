@@ -1,0 +1,23 @@
+<div class="card">
+    <header class="card-header is-flex is-justify-content-space-between is-align-items-center">
+        <div class="card-header-title">{{ item.title }}</div>
+        <div class="tag is-info flat-right has-text-right">{{ item.createdAt | ago }}</div>
+    </header>
+    <div class="card-content">
+        <div class="is-flex is-justify-content-space-between is-align-items-center mb-3">
+            <div class="tags has-addons mb-0">
+                <span class="tag is-medium">Product</span>
+                <span class="tag is-medium is-info">{{ item.product.name }}</span>
+            </div>
+            <div class="tags has-addons">
+                <span class="tag is-medium">Status</span>
+                <span class="tag is-medium is-link">{{ item.status }}</span>
+            </div>
+        </div>
+        <div class="content">{{ item.remarks }}</div>
+    </div>
+    <div class="card-footer">
+        <a class="card-footer-item">Remove</a>
+        <a class="card-footer-item" hx-get="{{ path('opportunity.item.edit', {'id': item.id }) }}" hx-target="#opportunity-item-{{ item.id }}">Edit</a>
+    </div>
+</div>

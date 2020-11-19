@@ -6,16 +6,13 @@
                     <a>Personal</a>
                 </li>
                 <li>
-                    <a hx-get="{{ path('opportunity.product', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Product</a>
+                    <a hx-get="{{ path('opportunity.product', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Opportunity</a>
                 </li>
                 <li>
                     <a hx-get="{{ path('opportunity.lead', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Lead History</a>
                 </li>
                 <li>
-                    <a>Actions</a>
-                </li>
-                <li>
-                    {# <a hx-get="{{ path('opportunity.interaction', {'id': opportunity.id}) }}" hx-target="#opportuntiy-workspace">Interactions</a> #}
+                    <a>Remarks</a>
                 </li>
             </ul>
         </div>

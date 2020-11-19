@@ -69,6 +69,11 @@ class Account
      */
     private $opportunities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OpportunityItem::class, mappedBy="account")
+     */
+    private $opportunityItems;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -78,6 +83,7 @@ class Account
         $this->leadSources = new ArrayCollection();
         $this->leadInteractions = new ArrayCollection();
         $this->opportunities = new ArrayCollection();
+        $this->opportunityItems = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -318,6 +324,36 @@ class Account
             // set the owning side to null (unless already changed)
             if ($opportunity->getAccount() === $this) {
                 $opportunity->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OpportunityItem[]
+     */
+    public function getOpportunityItems(): Collection
+    {
+        return $this->opportunityItems;
+    }
+
+    public function addOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if (!$this->opportunityItems->contains($opportunityItem)) {
+            $this->opportunityItems[] = $opportunityItem;
+            $opportunityItem->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if ($this->opportunityItems->removeElement($opportunityItem)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunityItem->getAccount() === $this) {
+                $opportunityItem->setAccount(null);
             }
         }
 

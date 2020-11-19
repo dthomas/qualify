@@ -1,0 +1,38 @@
+{% set action = edit == true ? path('opportunity.item.edit', {'id': id }) : path('opportunity.item.new', {'id': id}) %}
+{% set target = edit == true ? "#opportunity-item-" ~ id : "#new-opportunity-item" %}
+
+{{ form_start(form, {'method': 'POST', 'action': action }) }}
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.title) }}
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.product) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.dueAt) }}
+    </div>
+    <div class="column">
+        {{ form_row(form.status) }}
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        {{ form_row(form.remarks) }}
+    </div>
+</div>
+<div class="columns">
+    <div class="column">
+        {% if edit %}
+            <a class="button is-small is-rounded" hx-get="{{ path('opportunity.item.show', {'id': id }) }}" hx-target={{ target }}>Cancel</a>
+        {% else %}
+            <a class="button is-small is-rounded" script="on click put '' into #new-opportunity-item.innerHTML">Cancel</a>
+        {% endif %}
+        {{ form_rest(form) }}
+    </div>
+    <div class="column has-text-right">
+        <button type="button" hx-post="{{ action }}" hx-target={{ target }} class="button is-small is-link is-rounded">Save</button>
+    </div>
+</div>

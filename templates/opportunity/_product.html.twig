@@ -6,21 +6,45 @@
                     <a hx-get="{{ path('opportunity.personal', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Personal</a>
                 </li>
                 <li class="is-active">
-                    <a>Product</a>
+                    <a>Opportunity</a>
                 </li>
                 <li>
                     <a hx-get="{{ path('opportunity.lead', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Lead History</a>
                 </li>
                 <li>
-                    <a>Actions</a>
-                </li>
-                <li>
-                    {# <a hx-get="{{ path('opportunity.interaction', {'id': opportunity.id}) }}" hx-target="#opportuntiy-workspace">Interactions</a> #}
+                    <a>Remarks</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="columns">
 
+<div class="columns">
+    <div class="column is-8 is-offset-2 is-flex is-justify-content-end is-align-items-center">
+        {# <p class="subtitle is-5 mb-0">Progress 60%</p> #}
+        <a hx-get="{{ path('opportunity.item.new', {'id': opportunity.id}) }}" class="button is-small is-rounded" hx-target="#new-opportunity-item">Add Item</a>
+    </div>
+</div>
+<div class="columns">
+    <div
+        class="column is-8 is-offset-2">{# <progress class="progress is-large is-success" value="60" max="100">60%</progress> #}
+    </div>
+</div>
+<div class="columns">
+    <div class="column is-8 is-offset-2">
+        <div id="new-opportunity-item"></div>
+    </div>
+</div>
+<div id="opportunity-items">
+    {% for item in items %}
+        <div class="columns">
+            <div class="column is-8 is-offset-2" id="opportunity-item-{{ item.id }}">
+                {% include "opportunity/_opportunity_item.html.twig" with {'item': item } %}
+            </div>
+        </div>
+    {% else %}
+        <div class="columns">
+            <div class="column title is-4">No Item Added</div>
+        </div>
+    {% endfor %}
 </div>

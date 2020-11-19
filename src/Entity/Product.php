@@ -55,9 +55,15 @@ class Product implements AccountAwareInterface
      */
     private $leads;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OpportunityItem::class, mappedBy="product")
+     */
+    private $opportunityItems;
+
     public function __construct()
     {
         $this->leads = new ArrayCollection();
+        $this->opportunityItems = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -150,6 +156,36 @@ class Product implements AccountAwareInterface
             // set the owning side to null (unless already changed)
             if ($lead->getProduct() === $this) {
                 $lead->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OpportunityItem[]
+     */
+    public function getOpportunityItems(): Collection
+    {
+        return $this->opportunityItems;
+    }
+
+    public function addOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if (!$this->opportunityItems->contains($opportunityItem)) {
+            $this->opportunityItems[] = $opportunityItem;
+            $opportunityItem->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if ($this->opportunityItems->removeElement($opportunityItem)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunityItem->getProduct() === $this) {
+                $opportunityItem->setProduct(null);
             }
         }
 

@@ -73,12 +73,18 @@ class User implements UserInterface
      */
     private $opportunities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=OpportunityItem::class, mappedBy="createdBy")
+     */
+    private $opportunityItems;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->leads = new ArrayCollection();
         $this->leadInteractions = new ArrayCollection();
         $this->opportunities = new ArrayCollection();
+        $this->opportunityItems = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -280,6 +286,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($opportunity->getCreatedBy() === $this) {
                 $opportunity->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OpportunityItem[]
+     */
+    public function getOpportunityItems(): Collection
+    {
+        return $this->opportunityItems;
+    }
+
+    public function addOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if (!$this->opportunityItems->contains($opportunityItem)) {
+            $this->opportunityItems[] = $opportunityItem;
+            $opportunityItem->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpportunityItem(OpportunityItem $opportunityItem): self
+    {
+        if ($this->opportunityItems->removeElement($opportunityItem)) {
+            // set the owning side to null (unless already changed)
+            if ($opportunityItem->getCreatedBy() === $this) {
+                $opportunityItem->setCreatedBy(null);
             }
         }
 

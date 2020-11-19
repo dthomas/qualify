@@ -7,7 +7,7 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../styles/app.scss';
-require("htmx.org");
+import 'htmx.org';
 
 // var Turbolinks = require("turbolinks")
 // Turbolinks.start()
