@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Doctrine\AccountAwareInterface;
 use App\Repository\OpportunityItemRepository;
 use App\Traits\HasTimeStamps;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(name="idx_opportunity_items_updated_by_id", columns={"updated_by_id"}),
  * })
  */
-class OpportunityItem
+class OpportunityItem implements AccountAwareInterface
 {
     use HasTimeStamps;
     
