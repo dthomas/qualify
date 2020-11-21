@@ -8,8 +8,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,21 +36,37 @@ class OpportunityItemFormType extends AbstractType
                 'choices' => [
                     'Not Started' => 'not-started',
                     'In Progress' => 'in-progress',
+                    'Appointment Scheduled' => 'appointment-scheduled',
                     'Completed' => 'completed',
                     'Dropped' => 'dropped',
                     'Stuck' => 'stuck',
                 ],
-                'label' => 'Status',
-                'placeholder' => 'Please select',
+                'label' => false,
+                'placeholder' => 'Select a status',
             ])
-            ->add('dueAt', DateType::class, [
-                'widget' => 'single_text',
+            ->add('callbackAt', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'is-flex is-justify-content-space-between is-align-content-center',
+                ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'label' => 'Follow up on',
+                'required' => false,
+            ])
+            ->add('appointmentAt', DateTimeType::class, [
+                'attr' => [
+                    'class' => 'is-flex is-justify-content-space-between is-align-content-center',
+                ],
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'label' => 'Schedule an appointment on',
                 'required' => false,
             ])
             ->add('product', EntityType::class, [
                 'class' => Product::class,
                 'choice_label' => 'name',
-                'placeholder' => 'Please select',
+                'label' => false,
+                'placeholder' => 'Select a product',
             ]);
     }
 

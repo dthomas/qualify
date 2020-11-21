@@ -75,12 +75,17 @@ class OpportunityItem implements AccountAwareInterface
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dueAt;
+    private $callbackAt;
 
     /**
      * @ORM\Column(type="string", length=48)
      */
     private $status;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $appointmentAt;
 
     public function getId(): ?int
     {
@@ -183,14 +188,14 @@ class OpportunityItem implements AccountAwareInterface
         return $this;
     }
 
-    public function getDueAt(): ?\DateTimeInterface
+    public function getCallbackAt(): ?\DateTimeInterface
     {
-        return $this->dueAt;
+        return $this->callbackAt;
     }
 
-    public function setDueAt(?\DateTimeInterface $dueAt): self
+    public function setCallbackAt(?\DateTimeInterface $callbackAt): self
     {
-        $this->dueAt = $dueAt;
+        $this->callbackAt = $callbackAt;
 
         return $this;
     }
@@ -203,6 +208,18 @@ class OpportunityItem implements AccountAwareInterface
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getAppointmentAt(): ?\DateTimeInterface
+    {
+        return $this->appointmentAt;
+    }
+
+    public function setAppointmentAt(?\DateTimeInterface $appointmentAt): self
+    {
+        $this->appointmentAt = $appointmentAt;
 
         return $this;
     }

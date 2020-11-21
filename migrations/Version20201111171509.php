@@ -27,7 +27,8 @@ final class Version20201111171509 extends AbstractMigration
         $table->addColumn('remarks', 'text', ['notnull' => false]);
         $table->addColumn('history', 'json', ['notnull' => false, 'comment' => '(DC2Type:json_document)']);
         $table->addColumn('status', 'string', ['length' => 48]);
-        $table->addColumn('due_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('callback_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('appointment_at', 'datetime', ['notnull' => false]);
         $table->addColumn('created_at', 'datetime', ['default' => 'CURRENT_TIMESTAMP']);
         $table->addColumn('updated_at', 'datetime', ['notnull' => false]);
         $table->addColumn('account_id', 'bigint');

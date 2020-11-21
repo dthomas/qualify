@@ -1,23 +1,43 @@
-<div class="card">
-    <header class="card-header is-flex is-justify-content-space-between is-align-items-center">
-        <div class="card-header-title">{{ item.title }}</div>
-        <div class="tag is-info flat-right has-text-right">{{ item.createdAt | ago }}</div>
-    </header>
-    <div class="card-content">
-        <div class="is-flex is-justify-content-space-between is-align-items-center mb-3">
-            <div class="tags has-addons mb-0">
-                <span class="tag is-medium">Product</span>
-                <span class="tag is-medium is-info">{{ item.product.name }}</span>
-            </div>
-            <div class="tags has-addons">
-                <span class="tag is-medium">Status</span>
-                <span class="tag is-medium is-link">{{ item.status }}</span>
-            </div>
+<div class="box">
+    <div class="is-flex is-justify-content-space-between is-align-items-center">
+        <div>Created by
+            {{item.createdBy.name}}
+            {{item.createdAt | ago}}</div>
+        <div class="is-size-5">
+            {{item.title}}
+            <a hx-get="{{ path('opportunity.product.edit', {'id': item.id}) }}" hx-target="#opportunity-item-form">
+                <span class="iconify" data-icon="mdi:pencil" data-inline="false"></span>
+            </a>
         </div>
-        <div class="content">{{ item.remarks }}</div>
     </div>
-    <div class="card-footer">
-        <a class="card-footer-item">Remove</a>
-        <a class="card-footer-item" hx-get="{{ path('opportunity.item.edit', {'id': item.id }) }}" hx-target="#opportunity-item-{{ item.id }}">Edit</a>
+    <p class="is-size-6 my-3">Interest recorded for
+        <strong>{{item.product.name}}</strong>
+        with current status as
+        <strong>{{ item.status }}</strong>
+    </p>
+    <div class="content">
+        {{item.remarks}}
+    </div>
+    {% if item.appointmentAt %}
+        <div class="content has-text-link">
+            Appointment scheduled for
+            {{item.appointmentAt | date('d M, Y h:i a') }}
+        </div>
+    {% endif %}
+
+    <div class="is-flex is-justify-content-space-between is-align-items-center">
+        <div class="is-size-6">
+            {% if item.callbackAt %}
+                Follow up on
+                {{item.callbackAt|date('d M, Y h:i a')}}
+            {% endif %}
+        </div>
+
+        {% if item.updatedBy is not null %}
+            <div class="is-size-7">Last Updated
+                {{item.updatedAt | ago}}
+                by
+                {{item.updatedBy.name}}</div>
+        {% endif %}
     </div>
 </div>

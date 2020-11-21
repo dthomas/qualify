@@ -1,15 +1,16 @@
+{% set target = "#opportunity-workspace" %}
 <div class="columns">
     <div class="column">
         <div class="tabs is-medium is-right">
             <ul>
                 <li>
-                    <a hx-get="{{ path('opportunity.personal', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Personal</a>
+                    <a hx-get="{{ path('opportunity.personal', {'id': opportunity.id}) }}" hx-target={{target}}>Personal</a>
                 </li>
                 <li class="is-active">
-                    <a>Opportunity</a>
+                    <a>Product</a>
                 </li>
                 <li>
-                    <a hx-get="{{ path('opportunity.lead', {'id': opportunity.id}) }}" hx-target="#opportunity-workspace">Lead History</a>
+                    <a hx-get="{{ path('opportunity.lead', {'id': opportunity.id}) }}" hx-target={{target}}>Lead History</a>
                 </li>
                 <li>
                     <a>Remarks</a>
@@ -18,33 +19,19 @@
         </div>
     </div>
 </div>
-
 <div class="columns">
-    <div class="column is-8 is-offset-2 is-flex is-justify-content-end is-align-items-center">
-        {# <p class="subtitle is-5 mb-0">Progress 60%</p> #}
-        <a hx-get="{{ path('opportunity.item.new', {'id': opportunity.id}) }}" class="button is-small is-rounded" hx-target="#new-opportunity-item">Add Item</a>
-    </div>
-</div>
-<div class="columns">
-    <div
-        class="column is-8 is-offset-2">{# <progress class="progress is-large is-success" value="60" max="100">60%</progress> #}
-    </div>
-</div>
-<div class="columns">
-    <div class="column is-8 is-offset-2">
-        <div id="new-opportunity-item"></div>
-    </div>
-</div>
-<div id="opportunity-items">
-    {% for item in items %}
-        <div class="columns">
-            <div class="column is-8 is-offset-2" id="opportunity-item-{{ item.id }}">
-                {% include "opportunity/_opportunity_item.html.twig" with {'item': item } %}
+    <div class="column is-9">
+        <p class="subtitle">Products &amp; Appointments</p>
+        {% for item in items %}
+            {% include "opportunity/_opportunity_item.html.twig" with {'item': item} only %}
+        {% else %}
+            <div class="notification is-warning">
+                No product added. Please add.
             </div>
-        </div>
-    {% else %}
-        <div class="columns">
-            <div class="column title is-4">No Item Added</div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    <div class="column is-3" id="opportunity-item-form">
+        <p class="subtitle">New Product</p>
+        {% include "opportunity/_opportunity_form.html.twig" with {'id': opportunity.id, edit: false } %}
+    </div>
 </div>

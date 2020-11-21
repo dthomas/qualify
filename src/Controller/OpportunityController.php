@@ -135,6 +135,19 @@ class OpportunityController extends AbstractController
     {
         $item = new OpportunityItem();
         $form = $this->createForm(OpportunityItemFormType::class, $item);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $item->setAccount($this->getUser()->getAccount());
+            $item->setOpportunity($opportunity);
+            $item->setCreatedBy($this->getUser());
+            $item->setCreatedAt(new \DateTime());
+
+            $this->em->persist($item);
+            $this->em->flush();
+            $item = new OpportunityItem();
+            $form = $this->createForm(OpportunityItemFormType::class, $item);
+        }
 
         return $this->render('opportunity/_product.html.twig', [
             'opportunity' => $opportunity,
@@ -144,37 +157,9 @@ class OpportunityController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/item", name="opportunity.item.new", methods={"GET", "POST"})
+     * @Route("/{id}/product/edit", name="opportunity.product.edit", methods={"GET", "POST"})
      */
-    public function opportunityItemNew(Request $request, Opportunity $opportunity): Response
-    {
-        $item = new OpportunityItem();
-        $form = $this->createForm(OpportunityItemFormType::class, $item);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $item->setAccount($this->getUser()->getAccount());
-            $item->setOpportunity($opportunity);
-            $item->setCreatedBy($this->getUser());
-            $item->setCreatedAt(new \DateTime());
-
-            $this->em->persist($item);
-            $this->em->flush();
-            return new Response();
-        }
-
-        return $this->render('opportunity/_opportunity_form.html.twig', [
-            'form' => $form->createView(),
-            'opportunity' => $opportunity,
-            'edit' => false,
-            'id' => $opportunity->getId(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/item_edit", name="opportunity.item.edit", methods={"GET", "POST"})
-     */
-    public function opportunityItemEdit(Request $request, OpportunityItem $item): Response
+    public function opportunityProductEdit(Request $request, OpportunityItem $item): Response
     {
         $form = $this->createForm(OpportunityItemFormType::class, $item);
         $form->handleRequest($request);
@@ -185,27 +170,23 @@ class OpportunityController extends AbstractController
 
             $this->em->persist($item);
             $this->em->flush();
+            $opportunity = $item->getOpportunity();
 
-            return $this->render('opportunity/_opportunity_item.html.twig', [
-                'item' => $item,
+            $item = new OpportunityItem();
+            $form = $this->createForm(OpportunityItemFormType::class, $item);
+            dump($opportunity);
+
+            return $this->render('opportunity/_product.html.twig', [
+                'opportunity' => $opportunity,
+                'form' => $form->createView(),
+                'items' => $opportunity->getOpportunityItems(),
             ]);
         }
 
-        return $this->render('opportunity/_opportunity_form.html.twig', [
+        return $this->render('opportunity/_opportunity_item_edit.html.twig', [
             'form' => $form->createView(),
             'opportunity' => $item->getOpportunity(),
-            'edit' => true,
             'id' => $item->getId(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/itemshow", name="opportunity.item.show", methods={"GET"})
-     */
-    public function opoprtunityItemShow(Request $request, opportunityItem $item): Response
-    {
-        return $this->render('opportunity/_opportunity_item.html.twig', [
-            'item' => $item,
         ]);
     }
 
