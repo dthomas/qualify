@@ -174,7 +174,6 @@ class OpportunityController extends AbstractController
 
             $item = new OpportunityItem();
             $form = $this->createForm(OpportunityItemFormType::class, $item);
-            dump($opportunity);
 
             return $this->render('opportunity/_product.html.twig', [
                 'opportunity' => $opportunity,
