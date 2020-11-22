@@ -14,7 +14,7 @@
             <tr>
                 <td>{{ lead.id }}</td>
                 <td>{{ lead.name }}</td>
-                <td>{{ lead.contact.phone }}</td>
+                <td>{{ lead.contact.phone }} <a hx-get="{{ path('entity.dial', {'id': lead.id, 'module': 'lead' }) }}" class="button is-small is-rounded"><span class="iconify" data-icon="mdi:phone-dial" data-inline="false"></span></a></td>
                 <td>{{ lead.createdAt | ago }}</td>
                 <td>
                     <a class="button is-info is-small is-rounded" href="{{ path('lead.edit', {'id': lead.id}) }}">Edit</a>
