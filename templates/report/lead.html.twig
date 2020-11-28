@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lead Reports
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="{{path('home')}}">Home</a></li>
+            <li><a href="{{path('report.list')}}">Reports</a></li>
+            <li><a class="is-active">Lead Reports</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content">
+            <p class="title"></p>
+            <p class="title is-5 my-0">Lead Reports</p>
+        </p>
+    </div>
+    <div class="card-content" id="chart-workspace">
+        {% include "report/_lead.products.html.twig" with {'first': true } %}
+    </div>
+{% endblock %}

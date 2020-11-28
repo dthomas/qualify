@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *      @ORM\Index(name="idx_leads_product_id", columns={"product_id"}),
  *      @ORM\Index(name="idx_leads_account_id", columns={"account_id"}),
  *      @ORM\Index(name="idx_leads_lead_source_id", columns={"lead_source_id"}),
+ *      @ORM\Index(name="idx_leads_lead_stage_id", columns={"lead_stage_id"}),
  * })
  */
 class Lead implements AccountAwareInterface
@@ -84,6 +85,11 @@ class Lead implements AccountAwareInterface
      * @ORM\OneToMany(targetEntity=Opportunity::class, mappedBy="parentLead")
      */
     private $opportunities;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=LeadStage::class, inversedBy="leads")
+     */
+    private $leadStage;
 
     public function __construct()
     {
@@ -262,6 +268,18 @@ class Lead implements AccountAwareInterface
                 $opportunity->setParentLead(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLeadStage(): ?LeadStage
+    {
+        return $this->leadStage;
+    }
+
+    public function setLeadStage(?LeadStage $leadStage): self
+    {
+        $this->leadStage = $leadStage;
 
         return $this;
     }

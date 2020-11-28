@@ -199,6 +199,7 @@ class LeadInteractionController extends AbstractController
             $interaction->setParentLead($lead);
             $interaction->setUser($this->getUser());
             $interaction->setAccount($lead->getAccount());
+            $lead->setLeadStage($interaction->getLeadStage());
             $this->em->persist($interaction);
 
             $qualifed = $interaction->getLeadStage()->getStageType() === 'qualified';
@@ -215,10 +216,10 @@ class LeadInteractionController extends AbstractController
                 $opportunity->setCreatedAt(new \DateTime());
                 $lead->setIsQualified(true);
 
-                $this->em->persist($lead);
                 $this->em->persist($opportunity);
             }
-
+            
+            $this->em->persist($lead);
             $this->em->flush();
 
             if ($qualifed) {

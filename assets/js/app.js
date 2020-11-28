@@ -8,6 +8,10 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../styles/app.scss';
 import 'htmx.org';
+import Chart from "chart.js"
+import Chartkick from "chartkick"
+
+Chartkick.use(Chart)
 
 // var Turbolinks = require("turbolinks")
 // Turbolinks.start()

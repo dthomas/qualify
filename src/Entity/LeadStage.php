@@ -58,9 +58,15 @@ class LeadStage implements AccountAwareInterface
      */
     private $stageType;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lead::class, mappedBy="leadStage")
+     */
+    private $leads;
+
     public function __construct()
     {
         $this->leadInteractions = new ArrayCollection();
+        $this->leads = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -154,6 +160,36 @@ class LeadStage implements AccountAwareInterface
     public function setStageType(string $stageType): self
     {
         $this->stageType = $stageType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Lead[]
+     */
+    public function getLeads(): Collection
+    {
+        return $this->leads;
+    }
+
+    public function addLead(Lead $lead): self
+    {
+        if (!$this->leads->contains($lead)) {
+            $this->leads[] = $lead;
+            $lead->setLeadStage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLead(Lead $lead): self
+    {
+        if ($this->leads->removeElement($lead)) {
+            // set the owning side to null (unless already changed)
+            if ($lead->getLeadStage() === $this) {
+                $lead->setLeadStage(null);
+            }
+        }
 
         return $this;
     }

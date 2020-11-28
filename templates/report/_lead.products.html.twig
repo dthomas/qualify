@@ -1,0 +1,30 @@
+{% set trigger = first ? "load" : "none" %}
+<div class="tabs">
+    <ul>
+        <li class="is-active">
+            <a>Products</a>
+        </li>
+        <li>
+            <a data-hx-get="{{ path('report.lead.sources') }}" data-hx-target="#chart-workspace">Sources</a>
+        </li>
+        <li>
+            <a data-hx-get="{{ path('report.lead.time') }}" data-hx-target="#chart-workspace">Time</a>
+        </li>
+        <li>
+            <a data-hx-get="{{ path('report.lead.stages') }}" data-hx-target="#chart-workspace">Stage</a>
+        </li>
+    </ul>
+</div>
+<div class="block" data-hx-get="{{ path('report.lead.products') }}" data-hx-trigger={{trigger}} data-hx-target="#chart-workspace">
+    <div class="title is-5">Leads vs Products</div>
+    <div id="product-chart" data-values="{{ products }}"></div>
+</div>
+
+{% block lazyjs %}
+    <script>
+        var values = document.getElementById('product-chart').dataset.values;
+        var chart = new Chartkick.ColumnChart('product-chart', [], {xtitle: 'Product', ytitle: 'Count'});
+        Chartkick.charts['product-chart'].updateData(JSON.parse(values));
+        Chartkick.charts['product-chart'].redraw();
+    </script>
+{% endblock %}
