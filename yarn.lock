@@ -3250,10 +3250,10 @@ htmlparser2@^3.3.0:
     inherits "^2.0.1"
     readable-stream "^3.1.1"
 
-htmx.org@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-0.3.0.tgz#987b6cad08ac211cf808a6b77279ec228da59711"
-  integrity sha512-guRiV0ruisEYygB1KrjN9H3fl0kyiI/18Ta/ucfmqTXhtigyaFlco8NAUi24lBQkUZlqGYiafR3CgMeKVTF3ow==
+htmx.org@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/htmx.org/-/htmx.org-1.0.0.tgz#cd76754c17c74ce7eb710e7e6a42ce0a16a25f79"
+  integrity sha512-/d93/IWl8SXnxCSReOuRwXp3vSe7aGiBbetsfLaq6vDwsUPlFPw+Ic03GDF2+qeZmaqrTy/P4WaPopZ6Xclwng==
 
 http-deceiver@^1.2.7:
   version "1.2.7"
