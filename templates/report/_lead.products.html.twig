@@ -16,14 +16,28 @@
     </ul>
 </div>
 <div class="block" data-hx-get="{{ path('report.lead.products') }}" data-hx-trigger={{trigger}} data-hx-target="#chart-workspace">
-    <div class="title is-5">Leads vs Products</div>
-    <div id="product-chart" data-values="{{ products }}"></div>
+    <div class="columns">
+        <div class="column is-9">
+            <div class="title is-6">Leads vs Products</div>
+            <div id="product-chart" data-values="{{ products }}"></div>
+        </div>
+        <div class="column is-3">
+            <div class="title is-6">Filter</div>
+            {{ form_start(form) }}
+            {{ form_row(form.start, {'attr': {'data-hx-post': path('report.lead.products') }}) }}
+            {{ form_row(form.end, {'attr': {'data-hx-post': path('report.lead.products') }}) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 </div>
 
 {% block lazyjs %}
     <script>
         var values = document.getElementById('product-chart').dataset.values;
-        var chart = new Chartkick.ColumnChart('product-chart', [], {xtitle: 'Product', ytitle: 'Count'});
+        var chart = new Chartkick.ColumnChart('product-chart', [], {
+            xtitle: 'Product',
+            ytitle: 'Count'
+        });
         Chartkick.charts['product-chart'].updateData(JSON.parse(values));
         Chartkick.charts['product-chart'].redraw();
     </script>

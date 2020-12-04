@@ -15,9 +15,21 @@
         </li>
     </ul>
 </div>
-<div class="block">
-    <div class="title is-5">Lead vs Sources</div>
-    <div id="source-chart" data-values="{{ sources }}"></div>
+
+<div class="block" data-hx-target="#chart-workspace">
+    <div class="columns">
+        <div class="column is-9">
+            <div class="title is-6">Leads vs Sources</div>
+            <div id="source-chart" data-values="{{ sources }}"></div>
+        </div>
+        <div class="column is-3">
+            <div class="title is-6">Filter</div>
+            {{ form_start(form) }}
+            {{ form_row(form.start, {'attr': {'data-hx-post': path('report.lead.sources') }}) }}
+            {{ form_row(form.end, {'attr': {'data-hx-post': path('report.lead.sources') }}) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
 </div>
 
 {% block lazyjs %}

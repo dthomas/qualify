@@ -21,6 +21,7 @@
         </p>
     </div>
     <div class="card-content" id="chart-workspace">
-        {% include "report/_lead.products.html.twig" with {'first': true } %}
+        <div data-hx-trigger="load once" data-hx-get="{{ path('report.lead.products') }}" data-hx-target="#chart-workspace"></div>
+        {# {% include "report/_lead.products.html.twig" with {'first': true } %} #}
     </div>
 {% endblock %}
