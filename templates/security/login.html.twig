@@ -5,13 +5,11 @@
 
 {% block body %}
 	<div class="columns my-3">
-		<div class="column is-half is-offset-one-quarter">
-			<div class="card">
-				<header class="card-header">
-					<p class="card-header-title">
-						Login
-					</p>
-				</header>
+		<div class="column is-two-third">
+			<img src="{{ asset('build/images/login.svg') }}" alt="Login Image">
+		</div>
+		<div class="column is-one-third">
+			<div class="cards">
 				<div class="card-content">
 					{{ form_start(form) }}
 					<div class="content">
