@@ -1,0 +1,58 @@
+<div class="card" id="action-workspace">
+    <div class="tabs is-right py-3 px-5">
+        <ul>
+            <li>
+                <a data-hx-get="{{ path('dashboard.appointments.today') }}" data-hx-target="#action-workspace">Appointments</a>
+            </li>
+            <li>
+                <a data-hx-get="{{ path('dashboard.followup.opportunities.today') }}" data-hx-target="#action-workspace">Callback Opprtunities</a>
+            </li>
+            <li class="is-active">
+                <a>Callback Leads</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead class="has-background-link-dark">
+                    <tr>
+                        <th class="has-text-white">#</th>
+                        <th class="has-text-white">Schedule</th>
+                        <th class="has-text-white">Name</th>
+                        <th class="has-text-white">Product</th>
+                        <th class="has-text-white">Stage</th>
+                        <th class="has-text-white">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                        <td>{{ loop.index }}</td>
+                        <td>{{ lead['schedule'] | date('h:i A')}}
+                            ({{ lead['schedule'] | ago }})</td>
+                        <td>{{ lead['customer_name'] }}
+                            <a hx-get="{{ path('entity.dial', {'id': lead['id'], 'module': 'lead' }) }}" class="button is-small is-rounded">
+                                <span class="iconify" data-icon="mdi:phone-dial" data-inline="false"></span>
+                            </a>
+                        </td>
+                        <td>
+                            {% if lead['product_name'] %}
+                                {{ lead['product_name'] }}
+                            {% else %}
+                                <span class="tag is-danger is-rounded is-light is-normal">Not Selected</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="tag is-link is-rounded is-light is-normal">{{ lead['stage'] }}</span></td>
+                        <td>
+                            <a class="button is-success is-small is-rounded" href="{{ path('lead.interaction.new', { 'id': lead['id'] }) }}">Contact</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">No leads found</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div></div>

@@ -1,0 +1,54 @@
+<div class="card" id="action-workspace">
+    <div class="tabs is-right py-3 px-5">
+        <ul>
+            <li class="is-active">
+                <a>Appointments</a>
+            </li>
+            <li>
+                <a data-hx-get="{{ path('dashboard.followup.opportunities.today') }}" data-hx-target="#action-workspace">Callback Opprtunities</a>
+            </li>
+            <li>
+                <a data-hx-get="{{ path('dashboard.followup.leads.today') }}" data-hx-target="#action-workspace">Callback Leads</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-content">
+        <div class="content">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+                <thead class="has-background-link-dark">
+                    <tr>
+                        <th class="has-text-white">#</th>
+                        <th class="has-text-white">Schedule</th>
+                        <th class="has-text-white">Name</th>
+                        <th class="has-text-white">Product</th>
+                        <th class="has-text-white">Stage</th>
+                        <th class="has-text-white">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lead in leads %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ lead['schedule'] | date('h:i A')}}
+                                ({{ lead['schedule'] | ago }})</td>
+                            <td>{{ lead['customer_name'] }}
+                                <a hx-get="{{ path('entity.dial', {'id': lead['id'], 'module': 'opportunity' }) }}" class="button is-small is-rounded">
+                                    <span class="iconify" data-icon="mdi:phone-dial" data-inline="false"></span>
+                                </a>
+                            </td>
+                            <td>{{ lead['product_name'] }}</td>
+                            <td><span class="tag is-link is-light is-rounded is-normal">{{ lead['status'] }}</span></td>
+                            <td>
+                                <a class="button is-info is-small is-rounded" href="{{ path('opportunity.show', {'id': lead['id']}) }}">Contact</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No leads found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
