@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="is-active">
+                <a data-hx-get="{{ path('dashboard') }}" aria-current="page">Dashboard</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div data-hx-trigger="load once" data-hx-get="{{ path('dashboard.appointments.today') }}">
+    </div>
+{% endblock %}

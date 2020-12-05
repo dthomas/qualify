@@ -13,10 +13,12 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a class="navbar-item" href="{{ path('home') }}">
-                Home
-            </a>
+            {% if is_granted('IS_ANONYMOUS') %}
+                <a class="navbar-item" href="{{ path('home') }}">Home</a>
+            {% endif %}
+
             {% if is_granted('ROLE_USER') %}
+                <a class="navbar-item" href="{{ path('dashboard') }}">Dashboard</a>
                 <a class="navbar-item" href="{{ path('lead.list') }}">Leads</a>
                 <a class="navbar-item" href="{{ path('opportunity.list') }}">Opportunities</a>
                 <a class="navbar-item" href="{{ path('report.list') }}">Reports</a>
