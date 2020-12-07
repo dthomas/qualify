@@ -220,9 +220,10 @@ class ReportController extends AbstractController
 
         $conn = $this->em->getConnection();
         $sql = <<<SQL
-            SELECT ls.name AS stage, COUNT(l.lead_stage_id) AS count
+            SELECT ls.name AS stage, COUNT(DISTINCT l.id) AS count
             FROM lead_stages ls
-            JOIN leads l ON ls.id = l.lead_stage_id
+            JOIN lead_interactions li ON li.lead_stage_id = ls.id
+            JOIN leads l ON l.last_interaction_id = li.parent_lead_id
             WHERE l.account_id = :account AND ls.account_id = :account
             AND l.created_at BETWEEN :start AND :end
             GROUP BY ls.name
