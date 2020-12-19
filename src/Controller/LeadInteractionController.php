@@ -199,7 +199,7 @@ class LeadInteractionController extends AbstractController
             $interaction->setParentLead($lead);
             $interaction->setUser($this->getUser());
             $interaction->setAccount($lead->getAccount());
-            $lead->setLeadStage($interaction->getLeadStage());
+            $lead->setLastInteraction($interaction);
             $this->em->persist($interaction);
 
             $qualifed = $interaction->getLeadStage()->getStageType() === 'qualified';
