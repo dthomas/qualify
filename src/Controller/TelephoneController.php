@@ -61,7 +61,7 @@ class TelephoneController extends AbstractController implements LoggerAwareInter
             $response = $this->client->request('POST', $url, [
                 'body' => [
                     'From' => "+91{$this->getUser()->getPhone()}",
-                    'To' => "+91{$entity->getContact()->getPhone()}",
+                    'To' => $entity->getContact()->getPhone(),
                     'CallerId' => $this->getParameter('app.exotel.callerid'),
                     // 'StatusCallbackEvents[0]' => 'terminal',
                     // 'StatusCallbackContentType' => 'application/json',

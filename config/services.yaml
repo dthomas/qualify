@@ -7,6 +7,11 @@ parameters:
     app.url: '%env(resolve:APP_URL)%'
     app.exotel.dial_url: '%env(resolve:APP_EXOTEL_DIAL_URL)%'
     app.exotel.callerid: '%env(resolve:APP_EXOTEL_CALLERID)%'
+    app.facebook.webhook.url: '%env(resolve:APP_FACEBOOK_WEBHOOK_URL)%'
+    app.facebook.lead.app.id: '%env(resolve:APP_FACEBOOK_LEAD_APP_ID)%'
+    app.facebook.lead.app.secret: '%env(resolve:APP_FACEBOOK_LEAD_APP_SECRET)%'
+    app.facebook.lead.app.access.token: '%env(resolve:APP_FACEBOOK_LEAD_APP_ACCESS_TOKEN)%'
+    app.facebook.webhook.verify.token: '%env(resolve:APP_FACEBOOK_WEBHOOK_VERIFY_TOKEN)%'
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -74,6 +74,21 @@ class Account
      */
     private $opportunityItems;
 
+    /**
+     * @ORM\Column(type="json_document", nullable=true)
+     */
+    private $settings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FacebookPage::class, mappedBy="account")
+     */
+    private $facebookPages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FacebookLeadUpdate::class, mappedBy="account")
+     */
+    private $facebookLeadUpdates;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -84,6 +99,8 @@ class Account
         $this->leadInteractions = new ArrayCollection();
         $this->opportunities = new ArrayCollection();
         $this->opportunityItems = new ArrayCollection();
+        $this->facebookPages = new ArrayCollection();
+        $this->facebookLeadUpdates = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -354,6 +371,78 @@ class Account
             // set the owning side to null (unless already changed)
             if ($opportunityItem->getAccount() === $this) {
                 $opportunityItem->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
+    public function setSettings($settings): self
+    {
+        $this->settings = $settings;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FacebookPage[]
+     */
+    public function getFacebookPages(): Collection
+    {
+        return $this->facebookPages;
+    }
+
+    public function addFacebookPage(FacebookPage $facebookPage): self
+    {
+        if (!$this->facebookPages->contains($facebookPage)) {
+            $this->facebookPages[] = $facebookPage;
+            $facebookPage->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacebookPage(FacebookPage $facebookPage): self
+    {
+        if ($this->facebookPages->removeElement($facebookPage)) {
+            // set the owning side to null (unless already changed)
+            if ($facebookPage->getAccount() === $this) {
+                $facebookPage->setAccount(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FacebookLeadUpdate[]
+     */
+    public function getFacebookLeadUpdates(): Collection
+    {
+        return $this->facebookLeadUpdates;
+    }
+
+    public function addFacebookLeadUpdate(FacebookLeadUpdate $facebookLeadUpdate): self
+    {
+        if (!$this->facebookLeadUpdates->contains($facebookLeadUpdate)) {
+            $this->facebookLeadUpdates[] = $facebookLeadUpdate;
+            $facebookLeadUpdate->setAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacebookLeadUpdate(FacebookLeadUpdate $facebookLeadUpdate): self
+    {
+        if ($this->facebookLeadUpdates->removeElement($facebookLeadUpdate)) {
+            // set the owning side to null (unless already changed)
+            if ($facebookLeadUpdate->getAccount() === $this) {
+                $facebookLeadUpdate->setAccount(null);
             }
         }
 

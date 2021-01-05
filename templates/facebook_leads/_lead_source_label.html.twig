@@ -1,0 +1,11 @@
+{% set link =  path('settings.facebook.page.lead_source', {'id': page.id}) %}
+{% set target = "#lead-source-form-" ~ page.id %}
+
+
+<div id="lead-source-form-{{page.id}}">
+    {% if page.leadSource %}
+        <span class="tag is-link" title="Click to Edit" data-hx-get="{{ link }}" data-hx-target={{target}}>{{ page.leadSource.name }}</span>
+    {% else %}
+        <span class="tag is-danger is-light" title="Click to Edit" data-hx-get="{{ link }}" data-hx-target={{target}}>Click to set</span>
+    {% endif %}
+</div>

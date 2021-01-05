@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facebook Leads Integration
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li>
+                <a href="{{ path('home') }}">Home</a>
+            </li>
+            <li>
+                <a href="{{ path('settings') }}" aria-current="page">Settings</a>
+            </li>
+            <li class="is-active">
+                <a href="{{ path('settings.facebook.leads') }}" aria-current="page">Facebook Leads</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-content is-flex is-justify-content-space-between is-align-items-center">
+            <p class="title is-5 my-0">Facebook Leads Settings</p>
+            {% if linked_account %}
+                <p>
+                    <a class="button is-link is-rounded is-small" data-hx-get="{{ path('settings.facebook.pages') }}" data-hx-target="#facebook-workspace">Refresh Pages</a>
+                </p>
+            {% endif %}
+        </div>
+
+        <div class="card-content">
+            <div class="block" id="facebook-workspace">
+                {% if linked_account %}
+                    {% include "facebook_leads/pages.html.twig" with {'pages' : pages } only %}
+                {% else %}
+                    <a href="{{ facebook_login_url }}" class="button is-small is-link">Connect with Facebook</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
