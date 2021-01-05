@@ -34,7 +34,7 @@ class ProductFormType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 2, 'max' => 32]),
+                    new Length(['min' => 2, 'max' => 120]),
                 ]
             ])
             ->add('isAvailable', ChoiceType::class, [
